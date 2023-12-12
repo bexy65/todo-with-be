@@ -13,6 +13,15 @@ const firstStart = function (el) {
 
 firstStart();
 
+const removeTodos = function () {
+    const removeTodoBtns = document.querySelectorAll('.remove-todo');
+    for (const btnEl of removeTodoBtns) {
+        btnEl.addEventListener('click', function (e) {
+            e.currentTarget.closest('.todo-list__container').remove();
+        });
+    }
+};
+
 const renderHtmlTodoTask = function (value) {
     const todoHtml = `
     <div class="todo-list__container">
@@ -24,29 +33,19 @@ const renderHtmlTodoTask = function (value) {
     </div>`;
 
     todoListContainer.insertAdjacentHTML('afterbegin', todoHtml);
+    removeTodos();
 };
 
 todoArr.forEach((cur, i) => {
     renderHtmlTodoTask(cur);
 });
 
-const removeTodos = function () {
-    const removeTodoBtns = document.querySelectorAll('.remove-todo');
-    for (const btnEl of removeTodoBtns) {
-        console.log(btnEl);
-        btnEl.addEventListener('click', function (e) {
-            e.currentTarget.closest('.todo-list__container').remove();
-        });
-    }
-};
-
-removeTodos();
-
 addBtn.addEventListener('click', function (e) {
     e.preventDefault();
 
     if (input.value) {
         todoArr.push(input.value);
+        renderHtmlTodoTask(input.value);
         input.value = '';
     }
 });
