@@ -35,7 +35,7 @@ const removeTodos = function () {
     for (const btnEl of removeTodoBtns) {
         console.log(btnEl);
         btnEl.addEventListener('click', function (e) {
-            e.currentTarget.parentNode.parentNode.remove();
+            e.currentTarget.closest('.todo-list__container').remove();
         });
     }
 };
