@@ -3,7 +3,6 @@ const todoListContainer = document.querySelector('.todo-list-main-container');
 const todoList = document.querySelector('.todo-list__container');
 
 const addBtn = document.querySelector('#addTodo');
-const editTodoBtn = document.querySelector('.edit-todo');
 
 const todoArr = ['Buy burgers!', 'Leave a note', '12 eggs'];
 
@@ -18,6 +17,32 @@ const removeTodos = function () {
     for (const btnEl of removeTodoBtns) {
         btnEl.addEventListener('click', function (e) {
             e.currentTarget.closest('.todo-list__container').remove();
+        });
+    }
+};
+
+const editTodosHandler = function (el) {
+    el.innerHTML = `<input class="li-item-input" type="text" value="${el.textContent}" />`;
+    el.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            const editField = el.querySelector('.li-item-input');
+            const value = editField.value;
+            editField.remove();
+            el.textContent = value;
+        }
+    });
+};
+
+const editTodos = function () {
+    const editTodoBtn = document.querySelectorAll('.edit-todo');
+
+    for (const btnEl of editTodoBtn) {
+        btnEl.addEventListener('click', function (e) {
+            const liEl = e.target
+                .closest('.todo-list__container')
+                .querySelector('.todo-item');
+
+            editTodosHandler(liEl);
         });
     }
 };
@@ -39,6 +64,8 @@ const renderHtmlTodoTask = function (value) {
 todoArr.forEach((cur, i) => {
     renderHtmlTodoTask(cur);
 });
+
+editTodos();
 
 addBtn.addEventListener('click', function (e) {
     e.preventDefault();
