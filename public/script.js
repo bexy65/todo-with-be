@@ -7,11 +7,11 @@ const editTodoBtn = document.querySelector('.edit-todo');
 
 const todoArr = ['Buy burgers!', 'Leave a note', '12 eggs'];
 
-const firstStart = function (el) {
+const init = function (el) {
     todoListContainer.innerHTML = '';
 };
 
-firstStart();
+init();
 
 const removeTodos = function () {
     const removeTodoBtns = document.querySelectorAll('.remove-todo');
